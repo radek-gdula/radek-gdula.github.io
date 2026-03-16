@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sub z Prime – radek_gdula na Twitchu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e0c13;
+      --surface: #18151f;
+      --surface2: #221e2c;
+      --purple: #9147ff;
+      --purple-light: #b880ff;
+      --prime: #00a8e0;
+      --prime-glow: rgba(0,168,224,0.25);
+      --text: #f0ecff;
+      --muted: #8c85a0;
+      --border: rgba(145,71,255,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 0%, rgba(145,71,255,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 90% 100%, rgba(0,168,224,0.10) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO ── */
+    header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 72px 24px 56px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,168,224,0.12);
+      border: 1px solid rgba(0,168,224,0.35);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--prime);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .badge svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 740px;
+      margin: 0 auto 20px;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+
+    h1 span.accent { color: var(--purple-light); }
+    h1 span.prime-accent { color: var(--prime); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto 36px;
+      animation: fadeDown 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--purple);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 30px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      animation: fadeDown 0.6s 0.3s ease both;
+    }
+    .hero-cta:hover { background: var(--purple-light); transform: translateY(-2px); }
+    .hero-cta svg { width: 20px; height: 20px; }
+
+    /* ── MAIN ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--text);
+    }
+    .section-title span { color: var(--purple-light); }
+
+    /* ── REQUIREMENT BOX ── */
+    .req-box {
+      background: linear-gradient(135deg, rgba(0,168,224,0.08), rgba(0,168,224,0.03));
+      border: 1px solid rgba(0,168,224,0.28);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 56px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .req-icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      background: rgba(0,168,224,0.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--prime);
+    }
+    .req-icon svg { width: 22px; height: 22px; }
+    .req-box h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--prime); }
+    .req-box p { color: var(--muted); font-size: 0.93rem; }
+    .req-box a { color: var(--prime); text-decoration: underline; }
+
+    /* ── STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 28px; }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: start;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .step::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(145,71,255,0.04), transparent 60%);
+      pointer-events: none;
+    }
+    .step:hover { border-color: rgba(145,71,255,0.4); }
+    .step.visible { opacity: 1; transform: none; }
+
+    .step-num {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--purple), #6a1ee0);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 18px rgba(145,71,255,0.35);
+    }
+
+    .step-content h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .step-content p { color: var(--muted); font-size: 0.94rem; margin-bottom: 12px; }
+    .step-content p:last-child { margin-bottom: 0; }
+
+    .step-content a {
+      color: var(--purple-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(184,128,255,0.4);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .step-content a:hover { color: #fff; border-color: #fff; }
+
+    .tip {
+      background: rgba(145,71,255,0.08);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    .tip strong { color: var(--purple-light); }
+
+    /* screenshot placeholder */
+    .screen {
+      margin-top: 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .screen svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--purple); }
+
+    /* prime tag */
+    .tag-prime {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0,168,224,0.12);
+      border: 1px solid rgba(0,168,224,0.30);
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--prime);
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--purple-light); text-decoration: none; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      text-align: center;
+      margin: 56px 0 40px;
+      position: relative;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span {
+      position: relative;
+      background: var(--bg);
+      padding: 0 16px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .step { grid-template-columns: 1fr; }
+      .req-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="badge">
+      <!-- Amazon Prime icon -->
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      Amazon Prime Gaming
+    </div>
+    <h1>Subskrybuj <span class="accent">radek_gdula</span><br/>za darmo z <span class="prime-accent">Prime</span></h1>
+    <p class="subtitle">Masz Amazon Prime? Możesz co miesiąc podarować bezpłatną subskrypcję swojemu ulubionemu streamerowi. Oto jak to zrobić krok po kroku.</p>
+    <a href="https://www.twitch.tv/radek_gdula" target="_blank" rel="noopener" class="hero-cta">
+      <!-- Twitch icon -->
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.64 5.93h1.43v4.28h-1.43m3.93-4.28H17v4.28h-1.43M7 2L3.43 5.57v12.86h4.28V22l3.58-3.57h2.85L20.57 12V2m-1.43 9.29l-2.85 2.85h-2.86l-2.5 2.5v-2.5H7.71V3.43h11.43z"/></svg>
+      Przejdź do kanału
+    </a>
+  </header>
+
+  <main>
+
+    <!-- WYMAGANIE -->
+    <div class="req-box">
+      <div class="req-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      </div>
+      <div>
+        <h3>Wymaganie wstępne</h3>
+        <p>Potrzebujesz aktywnego planu <strong>Amazon Prime</strong> lub <strong>Prime Student</strong>. Jeśli go jeszcze nie masz, możesz zacząć <a href="https://www.amazon.pl/prime" target="_blank" rel="noopener">bezpłatny okres próbny na amazon.pl</a>. Jedno konto Prime = jeden bezpłatny sub miesięcznie na Twitchu.</p>
+      </div>
+    </div>
+
+    <p class="section-title">Instrukcja krok po kroku <span>→</span></p>
+
+    <div class="steps" id="steps">
+
+      <!-- KROK 1 -->
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h2>Połącz konto Amazon z Twitchem</h2>
+          <p>Wejdź na <a href="https://gaming.amazon.com" target="_blank" rel="noopener">gaming.amazon.com</a> i kliknij przycisk <strong>„Połącz z Twitchem"</strong> (Connect with Twitch) w prawym górnym rogu. Zaloguj się na swoje konto Twitch i zatwierdź połączenie.</p>
+          <div class="tip"><strong>Uwaga:</strong> Jeśli już wcześniej łączyłeś/aś konta, możesz pominąć ten krok i przejść od razu do kroku 2.</div>
+        </div>
+      </div>
+
+      <!-- KROK 2 -->
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h2>Przejdź na kanał radek_gdula</h2>
+          <p>Otwórz Twitcha i wejdź na kanał <a href="https://www.twitch.tv/radek_gdula" target="_blank" rel="noopener">twitch.tv/radek_gdula</a>. Możesz to zrobić przez przeglądarkę lub aplikację Twitch na komputer/telefon.</p>
+        </div>
+      </div>
+
+      <!-- KROK 3 -->
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h2>Kliknij przycisk „Subscribe"</h2>
+          <p>Pod okienkiem streamu lub w bocznym pasku znajdź fioletowy przycisk <strong>„Subscribe"</strong>. Kliknij w niego – otworzy się okienko wyboru subskrypcji.</p>
+          <div class="screen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+            Fioletowy przycisk „Subscribe" znajduje się bezpośrednio pod wideo lub przy nazwie kanału na górze strony.
+          </div>
+        </div>
+      </div>
+
+      <!-- KROK 4 -->
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h2>Wybierz „Prime Sub"</h2>
+          <p>W okienku subskrypcji zobaczysz opcję <strong>„Subscribe with Prime"</strong><span class="tag-prime">PRIME</span>. Kliknij w nią. Jeśli konta są prawidłowo połączone, opcja będzie aktywna i oznaczona logo Prime.</p>
+          <div class="tip"><strong>Wskazówka:</strong> Opcja Prime Sub pojawi się tylko wtedy, gdy Twoje konto Amazon z aktywnym Prime jest połączone z Twitchem i nie wykorzystałeś/aś jeszcze subskrypcji w tym miesiącu.</div>
+        </div>
+      </div>
+
+      <!-- KROK 5 -->
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h2>Potwierdź subskrypcję</h2>
+          <p>Pojawi się okienko potwierdzenia z podsumowaniem. Kliknij <strong>„Subscribe"</strong> lub <strong>„Confirm"</strong>, aby sfinalizować. Gotowe! Subskrypcja jest aktywna przez 30 dni i <strong>nie pobiera żadnej opłaty</strong> z Twojej karty.</p>
+        </div>
+      </div>
+
+      <!-- KROK 6 -->
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h2>Odnów subskrypcję co miesiąc</h2>
+          <p>Sub z Prime <strong>nie odnawia się automatycznie</strong>. Każdego miesiąca musisz ręcznie powtórzyć kroki 2–5, aby dalej wspierać radek_gdula. Warto ustawić sobie przypomnienie w kalendarzu!</p>
+          <div class="tip"><strong>Pamiętaj:</strong> Masz tylko jeden Prime Sub miesięcznie – jeśli chcesz, możesz go przekazać innemu streamerowi, ale wtedy stracisz sub u radek_gdula.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"><span>Masz problem? Sprawdź FAQ</span></div>
+
+    <!-- FAQ -->
+    <p class="section-title">Najczęstsze pytania <span>✦</span></p>
+    <div class="steps" id="faq">
+
+      <div class="step">
+        <div class="step-num" style="background: linear-gradient(135deg,#00a8e0,#0078a8); font-size:1rem;">?</div>
+        <div class="step-content">
+          <h2>Nie widzę opcji „Subscribe with Prime"</h2>
+          <p>Upewnij się, że Twoje konto Amazon Prime jest połączone z Twitchem na stronie <a href="https://gaming.amazon.com" target="_blank" rel="noopener">gaming.amazon.com</a>. Sprawdź też, czy subskrypcja Prime jest aktywna i czy nie wydałeś/aś już Sub w tym miesiącu.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num" style="background: linear-gradient(135deg,#00a8e0,#0078a8); font-size:1rem;">?</div>
+        <div class="step-content">
+          <h2>Czy Prime Sub daje takie same korzyści co płatny sub?</h2>
+          <p>Tak! Dostajesz dostęp do emotek subskrybenta, odznakę subskrypcji oraz wsparcie finansowe dla streamera – streamer otrzymuje taką samą kwotę jak przy normalnym subskrypcji Tier 1.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num" style="background: linear-gradient(135deg,#00a8e0,#0078a8); font-size:1rem;">?</div>
+        <div class="step-content">
+          <h2>Gdzie kupić Amazon Prime?</h2>
+          <p>W Polsce Amazon Prime jest dostępny na <a href="https://www.amazon.pl/prime" target="_blank" rel="noopener">amazon.pl</a>. Możesz zacząć od bezpłatnego okresu próbnego trwającego 30 dni.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Strona stworzona z ❤️ dla społeczności <a href="https://www.twitch.tv/radek_gdula" target="_blank" rel="noopener">radek_gdula</a> &nbsp;·&nbsp; Nie jest to oficjalna strona Twitch ani Amazon.</p>
+  </footer>
+
+  <script>
+    // Intersection Observer – reveal steps on scroll
+    const steps = document.querySelectorAll('.step');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 60 * i);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    steps.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
